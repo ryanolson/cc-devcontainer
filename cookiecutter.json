@@ -1,0 +1,39 @@
+{
+    "project_name": "my-project",
+    "author": "Ryan Olson",
+    "github_username": "ryanolson",
+
+    "enable_gpu": false,
+
+    "enable_python": false,
+    "enable_node": false,
+    "enable_rust": false,
+    "enable_cxx": false,
+    "enable_go": false,
+
+    "enable_cuda": false,
+
+    "enable_apt_cache": false,
+    "enable_conda": false,
+    "enable_llvm": false,
+
+    "apt_cache_http_proxy": "http://192.168.10.5:3142",
+    "apt_cache_https_proxy": "http://192.168.10.5:3142",
+
+    "conda_default_env": "{{ cookiecutter.project_name }}",
+    "conda_channels": [
+        "conda-forge",
+        "nvidia",
+        "rapidsai",
+        "pytorch",
+        "fastai"
+    ],
+
+    "cuda_tookit_version": "12.1",
+    "cuda_use_conda": false,
+
+    "llvm_version": "16",
+    "llvm_use_conda": false,
+
+    "python_version": "3.11"
+}

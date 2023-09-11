@@ -1,0 +1,94 @@
+//  SPDX-FileCopyrightText: Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+//  SPDX-License-Identifier: Apache-2.0
+//
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//  http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+{
+    "name": "{{ cookiecutter.project_name }}",
+    "build": {
+        "dockerfile": "./Dockerfile",
+        "context": ".",
+        "args": {
+            "BASE": "ubuntu:22.04"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "formulahendry.terminal"
+            ],
+            "settings": {
+                "editor.formatOnSave": false
+                // "cmake.cmakePath": "cmake", // Ensure we use the default from the conda environment
+                // // Fix for https://github.com/dotnet/vscode-dotnet-runtime/issues/159
+                // // Once version 1.6.1 of the extension has been release, this can be removed
+                // "cmake.languageSupport.dotnetPath": "/usr/bin/dotnet",
+            }
+        }
+    },
+    // "hostRequirements": {
+    //     "gpu": true,
+    // },
+    "initializeCommand": "bash -i 00_initialize_command.sh",
+    "onCreateCommand": "bash -i 01_on_create_command.sh",
+    "updateContentCommand": "bash -i 02_update_content_command.sh",
+    "postCreateCommand": "bash -i 03_post_create_command.sh",
+    "postStartCommand": "bash -i 04_post_start_command.sh",
+    "postAttachCommand": "bash -i 05_post_attach_command.sh",
+
+    "mounts": [
+        "source=${localEnv:HOME}/.config,target=/home/${localEnv:USER}/.config,type=bind"
+    ],
+    "remoteUser": "${localEnv:USER}",
+    "updateRemoteUserUID": true,
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "uid": "${localEnv:UID}",
+            "gid": "${localEnv:UID}",
+            "username": "${localEnv:USER}",
+            "installZsh": "true",
+            "upgradePackages": "true"
+        },
+        "ghcr.io/devcontainers/features/git:1": {
+            "ppa": "true"
+        },
+        "ghcr.io/devcontainers/features/git-lfs:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/rapidsai/devcontainers/features/utils:23": {},
+
+        // enable_python
+        "ghcr.io/rapidsai/devcontainers/features/mambaforge:23": {
+            // "version": "latest"
+        },
+
+        // enable_rust
+        "ghcr.io/rapidsai/devcontainers/features/rust:23": {
+            // "version": "latest",
+            // "profile": "minimal", // minimal, default, complete
+        }
+    },
+    "overrideFeatureInstallOrder": [
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/devcontainers/features/git",
+        "ghcr.io/devcontainers/features/git-lfs",
+        "ghcr.io/devcontainers/features/github-cli",
+        "ghcr.io/rapidsai/devcontainers/features/utils:23"
+    ],
+    "overrideCommand": true, // infinite loop of sleeps,
+    "runArgs": [
+        // "--network=host",
+        // "--cap-add=SYS_PTRACE",
+        // "--cap-add=SYS_NICE",
+        // "--security-opt",
+        // "seccomp=unconfined",
+    ]
+}
