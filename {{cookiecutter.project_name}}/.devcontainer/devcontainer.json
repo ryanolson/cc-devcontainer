@@ -38,13 +38,12 @@
     // "hostRequirements": {
     //     "gpu": true,
     // },
-    "initializeCommand": "bash -i 00_initialize_command.sh",
-    "onCreateCommand": "bash -i 01_on_create_command.sh",
-    "updateContentCommand": "bash -i 02_update_content_command.sh",
-    "postCreateCommand": "bash -i 03_post_create_command.sh",
-    "postStartCommand": "bash -i 04_post_start_command.sh",
-    "postAttachCommand": "bash -i 05_post_attach_command.sh",
-
+    "initializeCommand": "bash -i .devcontainer/00_initialize_command.sh",
+    "onCreateCommand": "bash -i .devcontainer/01_on_create_command.sh",
+    "updateContentCommand": "bash -i .devcontainer/02_update_content_command.sh",
+    "postCreateCommand": "bash -i .devcontainer/03_post_create_command.sh",
+    "postStartCommand": "bash -i .devcontainer/04_post_start_command.sh",
+    "postAttachCommand": "bash -i .devcontainer/05_post_attach_command.sh",
     "mounts": [
         "source=${localEnv:HOME}/.config,target=/home/${localEnv:USER}/.config,type=bind"
     ],
